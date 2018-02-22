@@ -12,6 +12,6 @@ function [a2,a3] = hyp(X,theta1, theta2);
   a2 = [ones(1,n);b2];
   
   z3 = theta2 * a2;
-  b3 = sigmoid(z3);
+  b3 = sigmoid(z3); #output is a row vector
   a3 = b3;
 end
