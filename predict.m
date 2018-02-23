@@ -9,5 +9,4 @@ function [p,prob] = predict(theta1, theta2, X,y);
  dif = abs(p-y');
  sum_dif = sum(dif(:) == 1);
  prob = 1 - (sum_dif / length(y));
- 
- 
+end 

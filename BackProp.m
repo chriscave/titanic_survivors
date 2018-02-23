@@ -4,10 +4,10 @@ function [D1,D2] = BackProp(X,y,theta1,theta2,lambda);
   
   
   
-  [a2, a3] = hyp(X, theta1, theta2);
+  [a2, a3] = hyp(X, theta1, theta2); #forward propagation
   delta3 = a3 - y';
   delta2 = (theta2' * delta3).*a2.*(1-a2);
-  delta2([1],:) = [];
+  delta2([1],:) = []; #when finding the derivatives, one does not find the derivative of theta_{0,j} because it does not exist, so we delete the first row.
   
   Delta1 = delta2 * X;
   Delta2 = delta3 * a2';
