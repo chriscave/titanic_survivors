@@ -37,5 +37,5 @@ function [D1,D2,D3] = BackProp(X,y,theta1,theta2,theta3,lambda);
   
   D1 = [e1, E1];
   D2 = [e2, E2];
-  D3 = [e2, E3];
+  D3 = [e3, E3];
 end

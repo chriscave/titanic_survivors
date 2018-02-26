@@ -11,13 +11,13 @@ function [a2,a3,a4] = hyp(X,theta1, theta2, theta3);
   
   z2 = theta1 * X';
   b2 = sigmoid(z2);
-  n = size(b2)(2);
-  a2 = [ones(1,n);b2];
+  n1 = size(b2)(2);
+  a2 = [ones(1,n1);b2];
   
   z3 = theta2 * a2;
   b3 = sigmoid(z3); #output is a row vector
-  n = size(b3)(2);
-  a3 = [ones(1,n);b3];
+  n2 = size(b3)(2);
+  a3 = [ones(1,n2);b3];
   
   z4 = theta3 * a3;
   b4 = sigmoid(z4); #output is a row vector
