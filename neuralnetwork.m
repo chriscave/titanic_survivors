@@ -31,7 +31,7 @@ Theta2 = theta([m1 + 1: m1 + m2], [n1 + 1: n1 + n2]);
 
 testdata = csvread('testmod.csv');
 Pid = testdata(:,[2]);
-Pid([1]) = []
+Pid([1]) = [];
 testdata(:,[1,2])=[];
 testdata([1],:) =[];
 

@@ -4,7 +4,7 @@ function [a2,a3] = hyp(X,theta1, theta2);
   [m2 n2] = size(theta2);
   
   a2 = zeros(m1+1,x1);
-  a3 = zeros(m2 + 1, x1);
+  a3 = zeros(m2, x1);
   
   z2 = theta1 * X';
   b2 = sigmoid(z2);
