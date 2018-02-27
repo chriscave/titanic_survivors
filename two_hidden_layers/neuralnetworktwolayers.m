@@ -12,6 +12,8 @@ X(:,[9]) = [];
 
 s2 = ceil((x2 - 1) / 2);
 s3 = floor((x2 - 1) / 2);
+#s2 = 11;
+#s3 = 11;
 
 #random initialisation
 epsilon1 = sqrt(6) / (sqrt(s2) + sqrt(x2));
@@ -39,7 +41,7 @@ theta3 = rand(1, s3 +1) * (2*epsilon3) - epsilon3;
 
 alpha = 0.3;
 lambda = 0.03;
-num_iters = 100;
+num_iters = 4000;
 
 [CVprob, mn, s] = crossVal(X,y,theta1, theta2, theta3,alpha, lambda, num_iters);
 [prob,theta, Cost_history, J] = nn(theta1, theta2, theta3, alpha, lambda, num_iters, X,y);
