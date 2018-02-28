@@ -8,6 +8,10 @@ X = [ones(m,1), X];
 #Removing features that do not affect results that much.
 X(:,[6]) = [];
 X(:,[9]) = [];
+
+X = [X, X(:,10).^2]; #adding polynomial features for title. Third degee polynomial seems to be overfitting.
+
+
 [x1 x2] = size(X);
 
 s2 = ceil((x2 - 1) / 2);
@@ -28,20 +32,9 @@ theta3 = rand(1, s3 +1) * (2*epsilon3) - epsilon3;
 [m2 n2] = size(theta2);
 [m3 n3] = size(theta3);
 
-#gradientchecking
-#epsilon = 1e-4
-#[App1,App2, App3] = gradientchecking(theta1, theta2, theta3, X,y,lambda,epsilon);
-
-#[D1,D2,D3] = BackProp(X,y,theta1,theta2,theta3,lambda);
-
-#D1 - App1;
-#D2 - App2;
-#D3 - App3;
-
-
 alpha = 0.2;
-lambda = 0.07;
-num_iters = 2000;
+lambda = 0.06;
+num_iters = 1000;
 
-#[CVprob, mn, s] = crossVal(X,y,theta1, theta2, theta3,alpha, lambda, num_iters);
-#[prob,theta, Cost_history, J] = nn(theta1, theta2, theta3, alpha, lambda, num_iters, X,y);
+err_prob = lc(X,y,theta1, theta2, theta3, num_iters,alpha,lambda);
+plot(err_prob(:,1),err_prob(:,2), 'r', err_prob(:,1),err_prob(:,3), 'b', err_prob(:,1),err_prob(:,4), 'g');
