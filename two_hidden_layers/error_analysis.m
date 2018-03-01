@@ -36,8 +36,26 @@ alpha = 0.2;
 lambda = 0.06;
 num_iters = 1000;
 
-[prob,theta, Cost_history, J] = nn(theta1, theta2, theta3, alpha, lambda, num_iters, X,y);
+k = randperm(x1);
+k = k';
 
+sixty_percent = ceil(x1 * .6);
+eighty_percent = ceil(x1 * .8);
 
-#err_prob = lc(X,y,theta1, theta2, theta3, num_iters,alpha,lambda);
-#plot(err_prob(:,1),err_prob(:,2), 'r', err_prob(:,1),err_prob(:,3), 'b', err_prob(:,1),err_prob(:,4), 'g');
+X_train = X(k(1: sixty_percent),:);
+X_cv = X(k((sixty_percent + 1) : eighty_percent),: );
+X_test = X(k((eighty_percent + 1) : x1), :);
+y_train = y(k(1: sixty_percent));
+y_cv = y(k((sixty_percent + 1) : eighty_percent));
+y_test = y(k((eighty_percent + 1) : x1));
+
+[prob,theta, Cost_history, J] = nn(theta1, theta2, theta3, alpha, lambda, num_iters, X_train,y_train);
+
+theta1 = theta([1:m1],[1:n1]);
+theta2 = theta([m1 + 1: m1 + m2], [n1 + 1: n1 + n2]);
+theta3 = theta([(m1 + m2 + 1): m1 + m2 + m3], [(n1 + n2 +1): (n1 + n2 + n3)]);
+
+[a2,a3,a4] = hyp(X_cv,theta1,theta2,theta3);
+
+[p,prob] = predict(theta1, theta2,theta3, X_cv,y_cv);
+Err_analysis = [X_cv,p',y_cv];
