@@ -1,17 +1,12 @@
-function [a2,a3] = hyp(X,theta1, theta2);
-  [x1 x2] = size(X);
-  [m1 n1] = size(theta1);
-  [m2 n2] = size(theta2);
+function H = hyp(X, theta, rowct, colct);
+  r = size(rowct,2);
+  H = [];
+  activation = X';
+  for i = 1: (r - 2);
+    weights = theta((rowct(i):rowct(i+1) - 1), (colct(i):colct(i+1) - 1));
+    activation = [ones(1,size(X,1));sigmoid(weights * activation)];
+    H = [H;activation];
+  end
+  weights = theta((rowct(r - 1): rowct(r) - 1), ( colct(r - 1): colct(r) - 1));
+  H = [H;sigmoid(weights * activation)];
   
-  a2 = zeros(m1+1,x1);
-  a3 = zeros(m2, x1);
-  
-  z2 = theta1 * X';
-  b2 = sigmoid(z2);
-  [m n] = size(b2);
-  a2 = [ones(1,n);b2];
-  
-  z3 = theta2 * a2;
-  b3 = sigmoid(z3); #output is a row vector
-  a3 = b3;
-end
