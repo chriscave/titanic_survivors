@@ -1,11 +1,17 @@
-function J = Cost(theta1, theta2, X,y,lambda);
-  J = 0;
-  [a2, a3] = hyp(X,theta1,theta2);
-  [m n] = size(X);
-  [m1 n1] = size(theta1);
-  [m2 n2] = size(theta2);
-  theta1_reg = theta1(:, [2:n1]);
-  theta2_reg = theta2(:, [2:n2]);
-  lambda_reg = (lambda/2) *( sum(sumsq(theta1_reg)) + sum(sumsq(theta2_reg)));
-  J = 1/m * ((-y' * log(a3')) - ((1 - y)' * log( 1 - a3')) +lambda_reg);
+function J = Cost(X,y,theta,lambda,rowct,colct);
+  m = size(X,1);
+  r = size(rowct,2);
+  hyprowct = [1];
+  for i = 2:r;
+    k = hyprowct(i-1) + (rowct(i)-rowct(i-1)) + 1;
+    hyprowct = [hyprowct,k];
+  end
+  H = hyp(X,theta,rowct,colct)(hyprowct(r-1),:);
+  colct_= colct;
+  colct_(r) = [];
+  theta_ = theta;
+  theta_(:,colct_) = [];
+  reg = sumsq(theta_, dim=1);
+  J = 1/m *( -y' * log(H') - ((1-y)' * log(1 - H')) + (lambda / 2) *sum(reg));
+  
 end
