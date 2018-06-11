@@ -104,6 +104,7 @@ for i = 2: (size(rowct,2) -1);
   colct(i) = colct(i-1) + layer(i-1) + 1;
   rowct(i) = rowct(i-1) + layer(i);
 end
+rand('seed','reset');
 init_theta = [];
 for i = 1:(size(rowct,2) -1);
   init_theta_ = rand(layer(i+1), layer(i) + 1)* (2* epsilon(i)) - epsilon(i);
@@ -142,6 +143,7 @@ fprintf('Now we plot a validation curve to find the optimal value of lambda. ');
 
 #This plots how the error in the training set and the cross validation set behaves with choices of lambda.
 #Lambda_vect = [0 0.001 0.003 0.01 0.03 0.1 0.3 0.5 1 3 5 10]. Ths can be changed in the ValidationCurve function.
+
 [lambda_vect, error_train, error_cv] =  validationCurve(X_train, y_train, X_cv, y_cv, init_theta, alpha, num_iters, rowct, colct);
 plot(lambda_vect,error_train,lambda_vect,error_cv);
 xlabel('lambda');
@@ -160,6 +162,7 @@ fprintf('Now we plot a learning curve for this value of lambda.\n');
 #This plots how the cost behaves after increasing the size of the training set. This has been modified to only perform 50 gradient descents.
 #You can change this in the learningCurve function.
 #This should give you an indication whether the neural network is overfitting or underfitting.
+
 [error_train, error_cv] = learningCurve(X_train, y_train, X_cv, y_cv, lambda, init_theta, alpha, num_iters, rowct, colct);
 plot(1:length(error_train), error_train, 1:length(error_train), error_cv);
 xlabel('Examples');
@@ -238,6 +241,7 @@ accuarcy = (CM(1,1) + CM(2,2)) / sum(CM(:));
 fprintf(['So the accuarcy on the test set is: %f\n'],accuarcy); #this is the score of our neural network
 
 #This is so we can remember these results and plot them
+
 M = [accuarcy, lambda, alpha, sum(hl),length(hl), threshold, hl];
 dlmwrite('Accuarcy_results.csv',M,"-append"); #this writes the results to this following file
 acc_results = csvread('Accuarcy_results.csv');
